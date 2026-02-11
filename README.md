@@ -136,16 +136,21 @@ jsonplaceholder.baseurl=https://jsonplaceholder.typicode.com
 
 mvn clean test
 
+---------------------------------------------------
 2) Executar apenas testes Smoke (por tags)
 
 mvn clean test -Dcucumber.filter.tags="@smoke"
+
+---------------------------------------------------
 
 3) Executar por outra tag (exemplo)
 
 mvn clean test -Dcucumber.filter.tags="@regression"
 
-🧪 Padrão BDD (Cucumber)
+---------------------------------------------------
 
+
+🧪 Padrão BDD (Cucumber)
 O projeto utiliza Gherkin no formato:
 
 Feature: Public API
@@ -156,9 +161,12 @@ Feature: Public API
     Then the response status code should be 200
     And the response should contain a non-empty field "current_user_url"
 
+
 E os steps ficam em:
 
 src/test/java/com/joseph/qa/automation/stepdefinitions/
+
+---------------------------------------------------
 
 🏷️ Tags de Execução
 
@@ -172,18 +180,26 @@ Scenario: Validate GitHub public API root endpoint
 Executar apenas smoke:
 mvn test -Dcucumber.filter.tags="@smoke"
 
+---------------------------------------------------
+
 🤖 GitHub Actions (CI)
 
 Pipeline configurado em:
 
 .github/workflows/tests.yml
 
+Executa automaticamente em:
+- Push na branch main
+- Pull Request para main
+- Manual (workflow_dispatch)
+
 Comando utilizado no CI:
 
 mvn -U clean test -Dcucumber.filter.tags="@smoke"
 
-📌 Boas Práticas Aplicadas
+---------------------------------------------------
 
+📌 Boas Práticas Aplicadas
 - Estrutura modular (runner / steps / hooks / config)
 - Configuração centralizada por properties
 - BDD com Gherkin + StepDefinitions limpas
@@ -191,9 +207,10 @@ mvn -U clean test -Dcucumber.filter.tags="@smoke"
 - CI com GitHub Actions (execução real em ambiente Linux)
 - Tags para smoke/regression (pronto para crescer)
 
-🚀 Próximas Evoluções (Roadmap)
+---------------------------------------------------
 
-- Sugestões de evolução natural para este framework:
+🚀 Próximas Evoluções (Roadmap)
+Sugestões de evolução natural para este framework:
 - Relatórios HTML (Cucumber Reports)
 - Allure Reports
 - Execução por profiles (dev/hml/prod)
@@ -202,6 +219,8 @@ mvn -U clean test -Dcucumber.filter.tags="@smoke"
 - DTOs com Jackson
 - Testes de schema JSON (JSON Schema Validator)
 - Integração com SonarQube e Quality Gate
+
+---------------------------------------------------
 
 👨‍💻 Autor
 Joseph Ribeiro Santos
