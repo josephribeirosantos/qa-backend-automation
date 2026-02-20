@@ -7,16 +7,21 @@ import org.junit.platform.suite.api.Suite;
 
 import static io.cucumber.junit.platform.engine.Constants.GLUE_PROPERTY_NAME;
 import static io.cucumber.junit.platform.engine.Constants.PLUGIN_PROPERTY_NAME;
-import static io.cucumber.junit.platform.engine.Constants.FILTER_TAGS_PROPERTY_NAME;
 
 @Suite
 @IncludeEngines("cucumber")
 @SelectClasspathResource("features")
-@ConfigurationParameter(key = GLUE_PROPERTY_NAME, value = "com.joseph.qa.automation")
+@ConfigurationParameter(
+        key = GLUE_PROPERTY_NAME,
+        value = "com.joseph.qa.automation.stepdefinitions,com.joseph.qa.automation.hooks"
+)
 @ConfigurationParameter(
         key = PLUGIN_PROPERTY_NAME,
-        value = "pretty, html:target/cucumber-report.html, json:target/cucumber-report.json"
+        value = "pretty," +
+                " summary," +
+                " html:target/cucumber-report.html," +
+                " json:target/cucumber.json," +
+                " junit:target/cucumber-junit.xml"
 )
-// Se quiser filtrar por tags via Maven, deixe vazio aqui e passe -Dcucumber.filter.tags=...
-@ConfigurationParameter(key = FILTER_TAGS_PROPERTY_NAME, value = "")
-public class TestRunner { }
+public class TestRunner {
+}
