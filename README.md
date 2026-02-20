@@ -1,229 +1,223 @@
-# QA Backend Automation (API Testing) — Java + Maven + Cucumber
+# QA Backend Automation --- Java + Cucumber + RestAssured + CI
 
-Framework profissional de automação de testes de API, desenvolvido em **Java 17**, com **BDD (Cucumber)**, execução via **JUnit Platform**, validações com **Rest Assured**, e integração completa com **GitHub Actions (CI)**.
+Framework profissional de automação de testes de API REST, desenvolvido
+em **Java 17**, utilizando **BDD com Cucumber**, validações com
+**RestAssured**, execução via **JUnit Platform**, e integração completa
+com **GitHub Actions (CI/CD)** com geração de relatórios automatizados.
 
-Este projeto foi construído para servir como base sólida para automação de APIs em ambientes reais (QA/Testing), com estrutura escalável e boas práticas.
+Este projeto foi estruturado com foco em escalabilidade, organização
+limpa e padrão de mercado para automação backend.
 
----
+------------------------------------------------------------------------
 
-## 📌 Tecnologias e Ferramentas Utilizadas
+# 🚀 Stack Tecnológica
 
-### Linguagem / Build
-- **Java 17**
-- **Maven**
+## Linguagem & Build
 
-### BDD + Runner
-- **Cucumber (BDD)**
-- **JUnit Platform Engine**
-- Execução com `mvn test`
+-   Java 17
+-   Maven
 
-### Testes de API
-- **Rest Assured** (requisições HTTP e validação de respostas)
-- **Hamcrest Matchers** (assertions)
-- **JSONPath** (extração e validação de campos no JSON)
+## BDD & Execução
 
-### Configuração
-- **application.properties**
-- Classe `Config` para leitura centralizada de propriedades
+-   Cucumber
+-   JUnit Platform (Suite Engine)
+-   Execução via `mvn clean test`
 
-### CI/CD
-- **GitHub Actions**
-- Pipeline configurado para rodar testes automaticamente em:
-    - `push` na branch `main`
-    - `pull_request` para `main`
-    - `workflow_dispatch` (manual)
+## API Testing
 
----
+-   RestAssured
+-   Hamcrest Matchers
+-   JSONPath
 
-## 🎯 Objetivo do Projeto
+## Relatórios
 
-Este repositório tem como foco:
+-   HTML Report
+-   JSON Report
+-   JUnit XML Report
+-   Upload automático como artifact no GitHub Actions
 
-- Automação de testes de APIs REST com boas práticas
-- Estrutura BDD (Given/When/Then)
-- Execução por tags (ex: `@smoke`)
-- Base pronta para evolução com:
-    - múltiplos ambientes (dev/hml/prod)
-    - autenticação (Bearer, OAuth2, Basic)
-    - relatórios HTML
-    - integração com Allure / ExtentReports
-    - testes de contrato e validação avançada
+## CI/CD
 
----
+-   GitHub Actions
+-   Execução automática em:
+    -   push para main
+    -   pull_request
+    -   workflow_dispatch
 
-## 📂 Estrutura do Projeto
+------------------------------------------------------------------------
 
-qa-backend-automation/
-│
-├─ .github/
-│ └─ workflows/
-│ └─ tests.yml # Pipeline CI (GitHub Actions)
-│
-├─ src/
-│ ├─ main/
-│ │ └─ resources/
-│ │ └─ features/ # (Opcional) features se quiser separar
-│
-│ └─ test/
-│ ├─ java/
-│ │ └─ com/joseph/qa/automation/
-│ │ ├─ runners/
-│ │ │ └─ TestRunner.java # Runner JUnit Platform
-│ │ │
-│ │ ├─ stepdefinitions/
-│ │ │ ├─ PublicApiSteps.java # Steps do teste GitHub
-│ │ │ └─ GetPostsSteps.java # Steps do teste JSONPlaceholder
-│ │ │
-│ │ ├─ hooks/
-│ │ │ └─ Hooks.java # Before/After do Cucumber
-│ │ │
-│ │ ├─ config/
-│ │ │ └─ Config.java # Leitura de propriedades
-│ │ │
-│ │ └─ BaseTest.java # Setup base para testes
-│ │
-│ └─ resources/
-│ ├─ config/
-│ │ └─ application.properties # URLs e configs do projeto
-│ │
-│ ├─ cucumber.properties # Config global do Cucumber
-│ │
-│ └─ features/
-│ ├─ public_api.feature # Feature GitHub API
-│ └─ get_posts.feature # Feature JSONPlaceholder
-│
-├─ pom.xml
-└─ README.md
+# 📂 Estrutura do Projeto
 
+    qa-backend-automation/
+    │
+    ├─ .github/
+    │  └─ workflows/
+    │     └─ tests.yml
+    │
+    ├─ src/
+    │  ├─ test/
+    │  │  ├─ java/com/joseph/qa/automation/
+    │  │  │   ├─ runners/
+    │  │  │   │   └─ TestRunner.java
+    │  │  │   ├─ stepdefinitions/
+    │  │  │   │   ├─ PublicApiSteps.java
+    │  │  │   │   └─ GetPostsSteps.java
+    │  │  │   ├─ hooks/
+    │  │  │   │   └─ Hooks.java
+    │  │  │   ├─ config/
+    │  │  │   │   └─ Config.java
+    │  │  │   └─ BaseTest.java
+    │  │
+    │  │  └─ resources/
+    │  │       ├─ features/
+    │  │       │   ├─ public_api.feature
+    │  │       │   └─ get_posts.feature
+    │  │       ├─ config/application.properties
+    │  │       └─ cucumber.properties
+    │
+    ├─ pom.xml
+    └─ README.md
 
----
+------------------------------------------------------------------------
 
-## ✅ Cenários Implementados
+# 🧪 Cenários Implementados
 
-### 1) GitHub Public API (GET)
-- Faz um GET no endpoint raiz da API pública do GitHub
-- Valida status code 200
-- Valida presença de campo obrigatório no JSON (`current_user_url`)
+## 1️⃣ GitHub Public API (GET)
 
-Feature:
-- `src/test/resources/features/public_api.feature`
+-   Requisição GET para API pública do GitHub
+-   Validação de status 200
+-   Validação de campo obrigatório no JSON (`current_user_url`)
 
----
+## 2️⃣ JSONPlaceholder API (GET /posts)
 
-### 2) JSONPlaceholder (GET /posts)
-- Faz GET em `/posts`
-- Valida status 200
-- Valida que a resposta é uma lista com conteúdo
+-   Requisição GET para `/posts`
+-   Validação de status 200
+-   Validação de retorno de lista não vazia
 
-Feature:
-- `src/test/resources/features/get_posts.feature`
+------------------------------------------------------------------------
 
----
+# 🏷️ Execução por Tags
 
-## ⚙️ Configuração do Projeto
+### Executar todos os testes
 
-### Arquivo de propriedades
-Local:
+    mvn clean test
 
-src/test/resources/config/application.properties
-Exemplo:
-```properties
-github.url=https://api.github.com
-jsonplaceholder.baseurl=https://jsonplaceholder.typicode.com
+### Executar apenas Smoke
 
-▶️ Como Executar Localmente
-1) Executar todos os testes
+    mvn clean test -Dcucumber.filter.tags="@smoke"
 
-mvn clean test
+### Executar apenas Regression
 
----------------------------------------------------
-2) Executar apenas testes Smoke (por tags)
+    mvn clean test -Dcucumber.filter.tags="@regression"
 
-mvn clean test -Dcucumber.filter.tags="@smoke"
+------------------------------------------------------------------------
 
----------------------------------------------------
+# 📊 Relatórios Gerados
 
-3) Executar por outra tag (exemplo)
+Após execução local:
 
-mvn clean test -Dcucumber.filter.tags="@regression"
+    target/
+    ├── cucumber-report.html
+    ├── cucumber.json
+    ├── cucumber-junit.xml
+    └── surefire-reports/
 
----------------------------------------------------
+## Tipos de relatório
 
+  Tipo        Finalidade
+  ----------- ------------------------------------
+  HTML        Visualização manual
+  JSON        Integração com Allure / Dashboards
+  JUnit XML   Integração com CI e ferramentas
 
-🧪 Padrão BDD (Cucumber)
-O projeto utiliza Gherkin no formato:
+------------------------------------------------------------------------
 
-Feature: Public API
+# 🤖 CI/CD -- GitHub Actions
 
-  Scenario: Validate GitHub public API root endpoint
-    Given the public API endpoint is available
-    When I perform a GET request to the GitHub API
-    Then the response status code should be 200
-    And the response should contain a non-empty field "current_user_url"
+Pipeline localizado em:
 
+    .github/workflows/tests.yml
 
-E os steps ficam em:
+### O que o pipeline faz:
 
-src/test/java/com/joseph/qa/automation/stepdefinitions/
+1.  Checkout do código
+2.  Setup do Java 17
+3.  Execução dos testes com filtro `@smoke`
+4.  Upload automático de:
+    -   surefire-reports
+    -   cucumber-report.html
+    -   cucumber.json
+    -   cucumber-junit.xml
 
----------------------------------------------------
+Os relatórios ficam disponíveis como Artifacts na aba:
 
-🏷️ Tags de Execução
+Repository → Actions → Workflow Run → Artifacts
 
-Tags são usadas para filtrar cenários:
+------------------------------------------------------------------------
+
+# ⚙️ Configuração
+
+Arquivo:
+
+    src/test/resources/config/application.properties
 
 Exemplo:
 
-@smoke
-Scenario: Validate GitHub public API root endpoint
+    github.url=https://api.github.com
+    jsonplaceholder.baseurl=https://jsonplaceholder.typicode.com
 
-Executar apenas smoke:
-mvn test -Dcucumber.filter.tags="@smoke"
+------------------------------------------------------------------------
 
----------------------------------------------------
+# 🏗️ Arquitetura Atual
 
-🤖 GitHub Actions (CI)
+O framework está estruturado seguindo princípios de organização limpa:
 
-Pipeline configurado em:
+-   Runner isolado
+-   Steps organizados por feature
+-   Hooks centralizados
+-   Configuração externa por properties
+-   Separação clara entre Feature, Step Definition, Config, Runner e CI
 
-.github/workflows/tests.yml
+Preparado para evolução futura com:
 
-Executa automaticamente em:
-- Push na branch main
-- Pull Request para main
-- Manual (workflow_dispatch)
+-   Service Layer (API Client)
+-   DTOs
+-   Autenticação
+-   Multi-ambiente
+-   Testes de contrato
+-   Relatórios avançados (Allure)
 
-Comando utilizado no CI:
+------------------------------------------------------------------------
 
-mvn -U clean test -Dcucumber.filter.tags="@smoke"
+# 📌 Boas Práticas Aplicadas
 
----------------------------------------------------
+-   Uso de BDD estruturado
+-   Separação de responsabilidades
+-   Configuração desacoplada
+-   Execução por tags
+-   CI automatizado
+-   Geração de relatórios padrão mercado
+-   Compatível com integração enterprise
 
-📌 Boas Práticas Aplicadas
-- Estrutura modular (runner / steps / hooks / config)
-- Configuração centralizada por properties
-- BDD com Gherkin + StepDefinitions limpas
-- Uso de RestAssured para API Testing
-- CI com GitHub Actions (execução real em ambiente Linux)
-- Tags para smoke/regression (pronto para crescer)
+------------------------------------------------------------------------
 
----------------------------------------------------
+# 🚀 Próximos Passos Técnicos (Roadmap)
 
-🚀 Próximas Evoluções (Roadmap)
-Sugestões de evolução natural para este framework:
-- Relatórios HTML (Cucumber Reports)
-- Allure Reports
-- Execução por profiles (dev/hml/prod)
-- Autenticação (Bearer / OAuth2)
-- Reutilização por Service Layer (API Client)
-- DTOs com Jackson
-- Testes de schema JSON (JSON Schema Validator)
-- Integração com SonarQube e Quality Gate
+-   Implementação de Service Layer (API Client Pattern)
+-   DTOs com Jackson
+-   Allure Reports
+-   Multi-environment profile
+-   Testes autenticados (Bearer / OAuth2)
+-   Schema validation
+-   Pipeline paralela (Smoke / Regression)
+-   Quality Gate
 
----------------------------------------------------
+------------------------------------------------------------------------
 
-👨‍💻 Autor
-Joseph Ribeiro Santos
-QA Engineer | QA Automation | Backend API Testing
+# 👨‍💻 Autor
+
+Joseph Ribeiro Santos\
+QA Engineer \| QA Automation Engineer\
+Backend API Testing Specialist
+
 GitHub: https://github.com/josephribeirosantos
-
