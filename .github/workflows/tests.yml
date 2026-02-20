@@ -2,9 +2,9 @@ name: API Tests (Maven + Cucumber)
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
   workflow_dispatch:
 
 jobs:
@@ -24,3 +24,27 @@ jobs:
 
       - name: Run smoke tests
         run: mvn -U clean test -Dcucumber.filter.tags="@smoke"
+
+      - name: Debug target folder
+        run: |
+          echo "Listing target folder"
+          ls -la target || true
+          find target -type f | grep -i cucumber || true
+
+      - name: Upload Surefire reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: surefire-reports
+          path: target/surefire-reports/**
+
+      - name: Upload Cucumber reports (if generated)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cucumber-reports
+          path: |
+            target/cucumber-reports/**
+            target/cucumber*.json
+            target/cucumber*.html
+          if-no-files-found: ignore
