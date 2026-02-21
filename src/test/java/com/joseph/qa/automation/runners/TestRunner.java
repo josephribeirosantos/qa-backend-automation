@@ -13,15 +13,11 @@ import static io.cucumber.junit.platform.engine.Constants.PLUGIN_PROPERTY_NAME;
 @SelectClasspathResource("features")
 @ConfigurationParameter(
         key = GLUE_PROPERTY_NAME,
-        value = "com.joseph.qa.automation.stepdefinitions,com.joseph.qa.automation.hooks"
+        value = "com.joseph.qa.automation"
 )
 @ConfigurationParameter(
         key = PLUGIN_PROPERTY_NAME,
-        value = "pretty," +
-                " summary," +
-                " html:target/cucumber-report.html," +
-                " json:target/cucumber.json," +
-                " junit:target/cucumber-junit.xml"
+        value = "pretty, summary, html:target/cucumber-report.html, json:target/cucumber.json"
 )
 public class TestRunner {
 }

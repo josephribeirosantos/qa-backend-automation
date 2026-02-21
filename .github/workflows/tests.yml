@@ -43,8 +43,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: cucumber-reports
-          path: |
-            target/cucumber-reports/**
-            target/cucumber*.json
-            target/cucumber*.html
+          path: target/
           if-no-files-found: ignore

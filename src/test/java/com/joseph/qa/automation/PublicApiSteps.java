@@ -1,4 +1,4 @@
-package com.joseph.qa.automation.stepdefinitions;
+package com.joseph.qa.automation;
 
 import com.joseph.qa.automation.config.Config;
 import io.cucumber.java.en.Given;
