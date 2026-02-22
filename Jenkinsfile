@@ -13,15 +13,12 @@ pipeline {
   }
 
   environment {
-    // para testes web em CI
     HEADLESS = "true"
   }
 
   stages {
     stage('Checkout') {
-      steps {
-        checkout scm
-      }
+      steps { checkout scm }
     }
 
     stage('Smoke API') {
