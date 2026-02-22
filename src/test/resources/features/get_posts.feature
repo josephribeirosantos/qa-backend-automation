@@ -2,7 +2,7 @@
 @smoke @posts
 Funcionalidade: Consultar posts da API pública
 
-  @get_posts
+  @smoke-api @regression-api
   Cenário: Buscar lista de posts com sucesso
     Dado que eu faço uma requisição GET para "/posts"
     Então o status code deve ser 200

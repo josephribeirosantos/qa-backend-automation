@@ -24,9 +24,15 @@ pipeline {
       }
     }
 
-    stage('Build + Smoke') {
+    stage('Smoke API') {
       steps {
-        sh 'mvn -U -B clean test -Dcucumber.filter.tags="@smoke" -Dweb.headless=${HEADLESS}'
+        sh 'mvn -U -B clean test -Dcucumber.filter.tags="@smoke-api"'
+      }
+    }
+
+    stage('Smoke Web') {
+      steps {
+        sh 'mvn -U -B clean test -Dcucumber.filter.tags="@smoke-web" -Dweb.headless=${HEADLESS}'
       }
     }
 
