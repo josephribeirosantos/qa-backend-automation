@@ -1,9 +1,13 @@
 pipeline {
   agent any
 
+  parameters {
+    choice(name: 'SUITE', choices: ['smoke-api', 'smoke-web'], description: 'Qual suíte executar?')
+  }
+
   tools {
-    jdk 'JDK17'          // configura no Jenkins (Manage Jenkins > Tools)
-    maven 'Maven3'       // configura no Jenkins (Manage Jenkins > Tools)
+    jdk 'JDK17'
+    maven 'Maven3'
   }
 
   options {
@@ -20,15 +24,15 @@ pipeline {
       steps { checkout scm }
     }
 
-    stage('Smoke API') {
+    stage('Run Tests') {
       steps {
-        sh 'mvn -U -B clean test -Dcucumber.filter.tags="@smoke-api"'
-      }
-    }
-
-    stage('Smoke Web') {
-      steps {
-        sh 'mvn -U -B clean test -Dcucumber.filter.tags="@smoke-web" -Dweb.headless=${HEADLESS}'
+        script {
+          if (params.SUITE == 'smoke-api') {
+            sh 'mvn -U -B clean test -Dcucumber.filter.tags="@smoke-api"'
+          } else {
+            sh 'mvn -U -B clean test -Dcucumber.filter.tags="@smoke-web" -Dweb.headless=true'
+          }
+        }
       }
     }
 
