@@ -13,6 +13,23 @@ pipeline {
     SELENIUM_PORT = "4444"
   }
 
+  options {
+    timestamps()
+    disableConcurrentBuilds()
+    skipDefaultCheckout(true)
+  }
+
+  stages {
+    stage('Clean + Checkout') {
+      steps {
+        deleteDir()       // apaga o workspace inteiro (equivale ao Wipe out)
+        checkout scm      // faz clone limpo
+      }
+    }
+
+    // ... resto das tuas stages
+  }
+
   stages {
     stage('Checkout') { steps { checkout scm } }
 
