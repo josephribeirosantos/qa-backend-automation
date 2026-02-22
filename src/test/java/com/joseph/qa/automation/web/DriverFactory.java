@@ -1,8 +1,8 @@
 package com.joseph.qa.automation.web;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
@@ -13,6 +13,7 @@ public class DriverFactory {
     private static final ThreadLocal<WebDriver> DRIVER = new ThreadLocal<>();
 
     public static void createDriver(boolean headless) {
+
         boolean remote = Boolean.parseBoolean(System.getProperty("web.remote", "false"));
         String remoteUrl = System.getProperty("web.remote.url", "http://localhost:4444/wd/hub");
 
@@ -21,7 +22,8 @@ public class DriverFactory {
         if (headless) {
             options.addArguments("--headless=new");
         }
-        // essenciais em container
+
+        // ESSENCIAL para rodar em container
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--window-size=1366,768");
@@ -31,10 +33,10 @@ public class DriverFactory {
                 DRIVER.set(new RemoteWebDriver(new URL(remoteUrl), options));
             } else {
                 WebDriverManager.chromedriver().setup();
-                DRIVER.set(new org.openqa.selenium.chrome.ChromeDriver(options));
+                DRIVER.set(new ChromeDriver(options));
             }
         } catch (Exception e) {
-            throw new RuntimeException("Failed to create WebDriver (remote=" + remote + ")", e);
+            throw new RuntimeException("Failed to create WebDriver", e);
         }
     }
 
